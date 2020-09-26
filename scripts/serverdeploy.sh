@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # this section check for root privs
-if [[ $UID -ne 0 ]]:
+if [[ $UID -ne 0 ]];
     then 
         echo "Please run as sudo!"
 exit
@@ -11,7 +11,7 @@ fi
 apt update -y && apt upgrade -y && apt autoremove -y 
 
 # this section installs the needed admin tools
-sudo apt install chkrootkit lynis qrencode curl git 
+sudo apt install chkrootkit lynis qrencode curl git vim
 
 # this sections installs the packages needed for WireGuard to work
 sudo apt-get install apt-transport-https ca-certificates curl gnupg-agent software-properties-common
@@ -37,9 +37,9 @@ sudo mkdir /opt/wireguard-server
 
 sudo chown admin:admin /opt/wireguard-server
 
-vim /opt/wireguard-server/docker-compose.yaml
-
 cat example.txt > /opt/wireguard-server/docker-compose.yaml # this section will need to have some file paths worked out
+
+vim /opt/wireguard-server/docker-compose.yaml
 
 cd /opt/wireguard-server
 

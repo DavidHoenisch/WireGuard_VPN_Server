@@ -24,7 +24,6 @@ sleep 1s
 
 # this section defines choice functions
 choice_one () {
-
 if [[ $choice == "1" ]];
     then
         ls /opt/wireguard-server/config/
@@ -33,6 +32,7 @@ if [[ $choice == "1" ]];
 fi
 menu ()
 }
+
 
 choice_two () {
 if [[ $choice == "2" ]];
