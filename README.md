@@ -136,7 +136,7 @@ When I was intitially getting wiregurd up and running there were a few resources
 ## Connecting and Distributing Peer Configuations
 Setting up peers on the new VPN connection is actually fairly simple. Mostly.  Tablets and phones are easiest as all that needs to be done is scanning a QR code.  In keeping with the goals of going this VPN route, we will not be building a custom VPN client, we will just use the WireGuard software package and a VPN config file.  The goal is to keep things as simple as possible.  Also, there is no need for a VPN provider to have apps on a client device.  The less connection the provider has with the client the better.  At least in my opinion. 
 
-The setup script that we will be writing can help handle some of the distribution of the config files.  For personal use, using *SCP* is a great way to get the files from the remote server to a client machine.  Though if you could easily use copy and paste if the situation allows. 
+I have written a custom script that can be run and will automate the distribution process.  For personal use, using *SCP* is a great way to get the files from the remote server to a client machine.  Though if you could easily use copy and paste if the situation allows.  The custom script will allow for both options depending on your needs.
 
 # Building Out the Server
 
@@ -306,8 +306,6 @@ Lets start with the easiest.  To get connected we will need two things.  One, th
 
 ![AppStore](images/AppStore.png)
 
-Additionally, you can find the app in the macOS app store.  
-
 With the app downloaded, we need to generate a QR code so that we can connect to the server.  
 
 In the server run the following command:
@@ -318,7 +316,7 @@ this will download a package that will allow us to generate, or more specificall
 
 Next run:
 ```
-qrencode -t ansiutf8 < [file.conf]
+qrencode -t ansiutf8 < /opt/wireguard-server/config/[peer#]/*.conf
 ```
 Be sure to replace the `[file.conf]` section with the peer info you want to view.  The format is simply `peer1`.  Replace the number one with whichever peer number you want to view.  You will need to run this command from inside the `/opt/wireguard-server/config` directory or provide the filepath before the peer name in the qrencode command.  
 
