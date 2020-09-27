@@ -35,7 +35,7 @@ newgrp docker
 # this section will set up a dir
 sudo mkdir /opt/wireguard-server
 
-sudo chown admin:admin /opt/wireguard-server
+sudo chown $USER:$USER /opt/wireguard-server
 
 cat example.txt > /opt/wireguard-server/docker-compose.yaml # this section will need to have some file paths worked out
 

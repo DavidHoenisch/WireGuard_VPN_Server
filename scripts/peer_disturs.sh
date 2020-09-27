@@ -3,7 +3,7 @@
 # this script is to make the distpursment of peer config files more streamlined
 
 # this section checks for root privs.  As the config files live in the root dir sudo will be needed
-if [[ $UID -ne 0 ]]:
+if [[ $UID -ne 0 ]];
     then 
         echo "Please run with sudo!"
     exit
@@ -12,6 +12,7 @@ fi
 # this section offers choices 
 
 menu () {
+
     echo "[1] Connect mobile clients"
     echo "[2] Connect computers with scp"
     echo "[3] Connect computers with copy & paste"
@@ -20,23 +21,22 @@ menu () {
         read -p "Please choose a menu opion (1, 2, etc.): " choice
     echo " "
 sleep 1s
+
 }
 
 # this section defines choice functions
 choice_one () {
-if [[ $choice == "1" ]];
-    then
+
         ls /opt/wireguard-server/config/
         read -p "What profile would  you like to use(example: peer1)? " profile 
-            qrencode -t ansiutf8 < $profile*
-fi
-menu ()
+            qrencode -t ansiutf8 < /opt/wireguard-server/config/$profile/*.conf
+
+menu 
+
 }
 
-
 choice_two () {
-if [[ $choice == "2" ]];
-    then
+
         ls /opt/wireguard-server/config/
         read -p "What profile would  you like to use(example: peer1)? " profile 
         read -p "What is your computers IP?: " IP
@@ -50,29 +50,33 @@ if [[ $choice == "2" ]];
             read -p "Is the information correct(y/n)? " correct
                 if [[ $correct == "y" ]];
                     then 
-                        scp $profile* $user@$IP:$path
+                        scp /opt/wireguard-server/config/$profile $user@$IP:$path
                             if [[ $? -ne 0 ]];
                                 then 
                                     echo "An unknown error occured"
                                     sleep 1s
                                     echo "Please check your firewall rules and network configurations and try again"
                             fi
-                else ;
-                    choice_one ()
+                else
+                    choice_one 
                 fi
-menu ()
-fi
+menu 
+
 }
 
 choice_three () {
+
     ls /opt/wireguard-server/config/
     read -p "What profile would  you like to use(example: peer1)? " profile 
-        cat /opt/wireguard-server/config/$profile
-menu ()    
+        cat /opt/wireguard-server/config/$profile/*.conf
+menu 
+
 }
 
 choice_four () {
-    exit ()
+
+    exit 
+
 }
 
 
@@ -80,21 +84,21 @@ choice_four () {
 
  if [[ $choice == "1" ]];
     then
-        choice_one () 
+        choice_one 
 fi
 
 if [[ $choice == "2" ]];
     then 
-        choice_two ()
+        choice_two 
 fi 
 
 if [[ $choice == "3" ]];
     then
-        choice_three ()
+        choice_three 
 fi
 
 if [[ $choice == "4" ]];
     then 
-        choice_four ()
+        choice_four 
 fi
 
