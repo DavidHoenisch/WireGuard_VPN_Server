@@ -28,7 +28,7 @@ sleep 1s
 choice_one () {
 
         ls /opt/wireguard-server/config/
-        read -p "What profile would  you like to use(example: peer1)? " profile 
+        read -p "What profile would  you like to use? (example: peer1): " profile 
             qrencode -t ansiutf8 < /opt/wireguard-server/config/$profile/*.conf
 
 menu 
@@ -66,6 +66,7 @@ choice_two () {
                                     sleep 1s
                                     echo " "
                                     echo "Please check your firewall rules and network configurations and try again"
+                                    exit
                             fi
                 else
                 echo " "
