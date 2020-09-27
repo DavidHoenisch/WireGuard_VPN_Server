@@ -110,6 +110,22 @@ If you would like to learn more about WireGuard you can check out their website 
 
 Additionally, if you are that kind of person and want to take a gander at the source code, you can take a look at their repo(s) here: https://www.wireguard.com/repositories/
 
+A couple things note: 
+
+1. Some still consider WireGuard to be expirmental as it is still under heavy developemt and has not been subject to the same security audits that other protcols have been put through.  
+2. Building off the first, some say it is not safe to use.
+
+Even though some VPN companies like Protonvpn.com say that will not use the protocol yet for the above reasons other companies such as moulvadvpn.com and privateinternetaccess.com have seen this protocol as strong enough to use as protocol options for subscribers. All this to say there is wide and varying opinions on the suitability of WireGuard to be used in production enviroments.  If this is a problem for you them I would suggest checking out the IKEv2/IPsec protocol.  I will be doing a server build down the road that hosts this VPN.  
+
+Despite all the unsurety about WireGuard, I think that in the next two to five years it will become *the* standard.  
+
+Take for example its code base.  With only 4,000 lines of code (as opposed to others like OVPN that has 400,000) it will be more secure.  I base this proposition on a few key points.
+1. A smaller code base allows for better debugging.  More lines of code make the job harder (note impossible) to get the kinks worked out.  It increases the chance of something getting missed or over looked.
+2. The smaller code base means that it will run faster.
+3. A smaller code base means that it is simpler.  It is always best to keep things as simple as possible.
+4. The protocol has already been incorporated into the Linux Kernal. Torvalds seems to the potential.  https://arstechnica.com/gadgets/2020/03/wireguard-vpn-makes-it-to-1-0-0-and-into-the-next-linux-kernel/
+5. As stated in the above article, the encryption standards that the protocol uses are among the best in the industry.  If you are into reading whitepages, you can get a good idea on the encryption side of things here: https://www.wireguard.com/
+
 
 ## Chosing a Deployment Method
 
