@@ -93,6 +93,8 @@ choice_four () {
 
 # this section calls f(x)'s based on user input
 
+menu
+
  if [[ $choice == "1" ]];
     then
         choice_one 
