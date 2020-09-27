@@ -39,14 +39,23 @@ choice_two () {
 
         ls /opt/wireguard-server/config/
         read -p "What profile would  you like to use(example: peer1)? " profile 
+        echo " "
         read -p "What is your computers IP?: " IP
+        echo " "
         read -p "What is your User ID?: " user
+        echo " "
         read -p "What the file path?: " path
+        echo " "
             echo "please verify the information you provided: "
+            echo " "
             echo $profile
+            echo " "
             echo $IP
+            echo " "
             echo $user
+            echo " "
             echo $path 
+            echo " "
             read -p "Is the information correct(y/n)? " correct
                 if [[ $correct == "y" ]];
                     then 
@@ -55,9 +64,11 @@ choice_two () {
                                 then 
                                     echo "An unknown error occured"
                                     sleep 1s
+                                    echo " "
                                     echo "Please check your firewall rules and network configurations and try again"
                             fi
                 else
+                echo " "
                     choice_one 
                 fi
 menu 
