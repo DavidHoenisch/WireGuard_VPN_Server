@@ -11,7 +11,7 @@ fi
 apt update -y && apt upgrade -y && apt autoremove -y 
 
 # this section installs the needed admin tools
-apt install chkrootkit lynis qrencode git vim
+apt install chkrootkit lynis qrencode git
 
 # this sections installs the packages needed for WireGuard to work
 apt install apt-transport-https ca-certificates curl gnupg-agent software-properties-common
@@ -27,20 +27,18 @@ curl -L "https://github.com/docker/compose/releases/download/1.26.2/docker-compo
 # this section sets some perms and adds needed groups
 chmod +x /usr/local/bin/docker-compose
 
-usermod -aG docker $USER
+usermod -aG docker david
 
 newgrp docker
 
 # this section will set up a dir
 mkdir /opt/wireguard-server
 
-chown $USER:$USER /opt/wireguard-server
+chown david:david /opt/wireguard-server
 
 cat example.txt > /opt/wireguard-server/docker-compose.yaml # this section will need to have some file paths worked out
 
-exit
-
-vim /opt/wireguard-server/docker-compose.yaml
+nano /opt/wireguard-server/docker-compose.yaml
 
 cd /opt/wireguard-server
 

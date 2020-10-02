@@ -102,7 +102,6 @@ As mentioned above, I have chosen to go with the WireGuard protocol.  This is fo
 3. WireGuard is open source
 4. Wireguard has very good cryptographic practices.  (Check out their website for more info)
 
-This is not to say that all of the rest of the protocols are junk an not worth using.  It is to say that WireGuard is very fast, and very efficient without sacrificing security, flexibility and usability along the way.  
 
 You can chose whichever one you want.  OpenVPN is still a good option.  This repo however is geared towards building and deploying WireGuard VPNs.  
 
@@ -123,8 +122,10 @@ Take for example its code base.  With only 4,000 lines of code (as opposed to ot
 1. A smaller code base allows for better debugging.  More lines of code make the job harder (note impossible) to get the kinks worked out.  It increases the chance of something getting missed or over looked.
 2. The smaller code base means that it will run faster.
 3. A smaller code base means that it is simpler.  It is always best to keep things as simple as possible.
-4. The protocol has already been incorporated into the Linux Kernal. Torvalds seems to the potential.  https://arstechnica.com/gadgets/2020/03/wireguard-vpn-makes-it-to-1-0-0-and-into-the-next-linux-kernel/
-5. As stated in the above article, the encryption standards that the protocol uses are among the best in the industry.  If you are into reading whitepages, you can get a good idea on the encryption side of things here: https://www.wireguard.com/
+4. The protocol has already been incorporated into the Linux Kernal. Torvalds seems to already see the potential.  https://arstechnica.com/gadgets/2020/03/wireguard-vpn-makes-it-to-1-0-0-and-into-the-next-linux-kernel/
+5. As stated in the above article, the encryption standards that the protocol uses are among the best in the industry.  If you are into reading whitepages, you can get a good idea on the encryption side of things here: https://www.wireguard.com/126
+
+Lastly, it should be noted 
 
 
 ## Chosing a Deployment Method
@@ -134,7 +135,7 @@ There are a few ways that you can deploy a VPN server.  The first method is the 
 In deploying our VPN this ways, we can consistently spin up lots of servers if needed, and then configure those servers in much the same way, cutting down on setup time and offering us a repeatable method of starting up a VPN server.  
 
 In some use cases, docker.io will also allow us to manage multiple containers on a seperate machine, from what is sometimes called a "Jump-Box."  This allows us to push configuations to all our servers once from a single location, instead of having to go into each VPS and make configuration manually.  As my cyber-security instructor has said: "a good security engineer is a lazy one.  He make the computer to all the heavy lifting."  And so with docker, we can create an efficient and repeatable work flow that will allow us to mamage multiple instances.
-With all these advantages we will be using this method.  
+With all these advantages we will be using this deployment method.  
 
 ## Creating a Repeatable, Scalable, Deployment Solution
 
@@ -150,15 +151,17 @@ When I was intitially getting wiregurd up and running there were a few resources
 
 
 ## Connecting and Distributing Peer Configuations
-Setting up peers on the new VPN connection is actually fairly simple. Mostly.  Tablets and phones are easiest as all that needs to be done is scanning a QR code.  In keeping with the goals of going this VPN route, we will not be building a custom VPN client, we will just use the WireGuard software package and a VPN config file.  The goal is to keep things as simple as possible.  Also, there is no need for a VPN provider to have apps on a client device.  The less connection the provider has with the client the better.  At least in my opinion. 
+Setting up peers on the new VPN connection is actually fairly simple. Mostly.  Tablets and phones are easiest as all that needs to be done is scanning a QR code.  In keeping with the goals of going this VPN route, we will not be building a custom VPN client, we will just use the WireGuard software package and a VPN config file.  The goal is to keep things as simple as possible.  Also, there is no *need* for a VPN provider to have apps on a client device.  The less connection the provider has with the client the better.  At least in my opinion.  That said, on the flip side, there are good reasons for VPN providers to have software on an end users device.  One, it allows clients to easily connects to different peers. Two, the software ensures that that devices are not succoming to DNS or IPv6 leaks.  My resevervation in using a providers client software lies in its trustability.  Thankfully, some providers like ProtonVPN and PIA have open sourced their client software.  This move adds confidence in using such clients.  Not all have done this though and I would never consider using a client that was not open source.  It is still my preference to using config files, and set everything up manually.  This way I *know*  what is is going on in the background becuase I purposely configured it.  
 
-I have written a custom script that can be run and will automate the distribution process.  For personal use, using *SCP* is a great way to get the files from the remote server to a client machine.  Though if you could easily use copy and paste if the situation allows.  The custom script will allow for both options depending on your needs.
+
+
+I have written a custom script that can be run and will automate the distribution process.  For personal use, using *SCP* is a great way to get the files from the remote server to a client machine.  However, you could easily use copy and paste if the situation allows.  The distribution script will allow for both options depending on your needs.
 
 # Building Out the Server
 
 Now that we have gained a high level view of what it is we are tryig to accomplish, lets begin building out the server. 
 
-Once you make a payment, you will get an email at the address you provided at check out that will have the login creds for your server.  This is a headless setup so some comfortability with the CLI will come in handy for you.  To log in:
+Once you make a payment, you will get an email at the address you provided at check out that will have the login creds for your server.  This is a headless setup, so some comfortability with the CLI will come in handy for you.  To log in:
 
 ```
 $ ssh [login]@[ip_address]
