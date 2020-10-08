@@ -113,6 +113,7 @@ A couple things note:
 
 1. Some still consider WireGuard to be expirmental as it is still under heavy developemt and has not been subject to the same security audits that other protcols have been put through.  
 2. Building off the first, some say it is not safe to use.
+3. There Are some privacy concerns, as the protocol it self **does** keep IP logs.  (This is not a problem if it is running on a server **you** control.  Addtionally, those providers that do use the protocol have mitigations for this draw back.  Hopefully, with further updates this issue will be changed.)
 
 Even though some VPN companies like Protonvpn.com say that will not use the protocol yet for the above reasons other companies such as moulvadvpn.com and privateinternetaccess.com have seen this protocol as strong enough to use as protocol options for subscribers. All this to say there is wide and varying opinions on the suitability of WireGuard to be used in production enviroments.  If this is a problem for you them I would suggest checking out the IKEv2/IPsec protocol.  I will be doing a server build down the road that hosts this VPN.  
 
