@@ -1,0 +1,86 @@
+---
+  - hosts: wg
+    become: true
+    become_user: root
+    tasks:
+      - name: update dem repos!
+        apt: update_cache=yes force_apt_get=yes
+
+      - name: upgrade dem packages
+        apt: upgrade=dist force_apt_get=yes
+
+      - name: reboot dat server if needed!
+        reboot:
+          msg: "reboot required for kernal updates"
+          connect_timeout: 5
+          reboot_timeout: 300
+          pre_reboot_delay: 0
+          post_reboot_delay: 30
+          test_command: uptime
+        when: reboot_required_file.stat.exists
+
+      - name: install dem needed packages!
+        apt:
+          state: present
+          name:
+            - vim
+            - git
+            - curl
+            - apt-transport-https
+            - ca-certificates
+            - gnupg-agent
+            - software-properties-common
+            - docker-ce
+            - docker-ce-cli
+            - containerd.io
+
+      - name: get that apt-key!
+        apt_key:
+          keyserver: https://download.docker.com/linux/ubuntu/gpg
+          state: present
+
+      - name: add dat repo!
+        apt_repository:
+          repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable
+          state: present
+
+      - name:  its late, im tired, and this works
+        shell: sudo curl -L "https://github.com/docker/compose/releases/download/1.26.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+
+      - name: adding dat needed user!
+        user:
+          name: admin
+          group: admin sudo
+          password: ansible
+          generate_ssh_key: yes force=yes
+          ssh_key_file: ~/.ssh/admin_wg
+
+      - name: change bits
+        file:
+          path: /usr/local/bin/docker-compose
+          mode: "+x"
+          owner: root
+          group: sudo
+
+      - name: adding admin to docker group
+        user:
+          name: admin
+          group: docker
+
+      - name: creating group
+        group:
+          name: docker
+          state: present
+
+      - name: create some dirs
+        file:
+          path: /opt/wireguard-server
+          state: directory
+          mode: "o=rwx, g=rwx"
+          group: admin
+          owner: admin
+
+      - name: get docker compose file
+        get_url:
+          url: https://raw.githubusercontent.com/DavidHoenisch/WireGuard_VPN_Server/master/scripts/docker-compose.yaml
+          dest: /opt/wireguard-server/docker-compose.yml
