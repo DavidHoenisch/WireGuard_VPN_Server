@@ -84,3 +84,9 @@
         get_url:
           url: https://raw.githubusercontent.com/DavidHoenisch/WireGuard_VPN_Server/master/scripts/docker-compose.yaml
           dest: /opt/wireguard-server/docker-compose.yml
+
+      - name: run the playbook
+        become: true
+        shell:
+          cmd: "docker-compose up -d"
+          chdir: /opt/wireguard-server/
